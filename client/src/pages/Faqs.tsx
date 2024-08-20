@@ -70,14 +70,7 @@ const FAQSection: React.FC = () => {
             />
           ))}
         </div>
-        <div className="text-center mt-4">
-          <button
-            onClick={handleReset}
-            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Reset Answers
-          </button>
-        </div>
+        
       </div>
     </div>
     </div>
