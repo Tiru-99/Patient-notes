@@ -34,6 +34,7 @@ Patient Notes is a user-friendly interface for doctors to create and manage thei
 
 Follow these steps to get the project up and running on your local machine:
 
+```bash
 # Clone the repository
 git clone https://github.com/your-username/patient-notes.git
 
