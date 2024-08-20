@@ -1,3 +1,27 @@
+/* src/index.css or src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Sedan:ital@0;1&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.josefin-font {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.sedan-font {
+  font-family: 'Sedan', serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
