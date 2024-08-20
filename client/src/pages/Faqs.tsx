@@ -40,9 +40,7 @@ const FAQSection: React.FC = () => {
     setOpenIndex(prevIndex => (prevIndex === index ? null : index));
   };
 
-  const handleReset = () => {
-    setOpenIndex(null);
-  };
+
 
   return (
     <>
