@@ -1,5 +1,5 @@
 
-
+//privacy page faq questions component
 const FAQ = () => {
   const questions = [
     {

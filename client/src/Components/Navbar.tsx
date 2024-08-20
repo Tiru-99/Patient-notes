@@ -9,7 +9,7 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  //auth0 functionality 
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ const Navbar = () => {
             {item}
           </a>
         ))}
-        
+        {/* log in functionality using auth0 */}
         <button onClick={()=>loginWithRedirect()} className="block px-4 py-2 mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded transition duration-300">
           Log In
         </button>

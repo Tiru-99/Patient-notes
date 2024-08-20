@@ -24,7 +24,7 @@ export const Privacy = () =>{
                 Protecting patient information is our #1 priority
             </div>
 
-            <div className="mt-12 sm:flex justify-center flex-col-1 sm:gap-8">
+                <div className="mt-12 sm:flex justify-center flex-col-1 sm:gap-8">
                         <div className="flex flex-col items-center sm:mt-10 mt-16">
                             <div className="h-40 w-40 rounded-full">
                             <img src="/caduceus-symbol.png" className="max-w-full max-h-full object-contain" alt="Caduceus Symbol" />

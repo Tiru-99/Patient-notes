@@ -15,7 +15,7 @@ export const Loggedin = () => {
 
   if (!user) {
     console.log("There is a problem with your ID and details");
-    return null; // Return null to avoid rendering anything if there's an issue with user details
+    return null; 
   }
 
   return (
