@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -32,14 +33,14 @@ const Navbar = () => {
         {/* Middle: Navigation Links */}
         <div className="hidden md:flex space-x-6">
           {['Home', 'About Us', 'Privacy','Our Customers', 'FAQs'].map((item) => (
-            <a 
+            <Link 
               key={item} 
-              href={`/${item.toLowerCase().replace(" ", "")}`} 
+              to={`/${item.toLowerCase().replace(" ", "")}`} 
               className="relative group text-white"
             >
               {item}
               <span className="absolute left-0 right-0 bottom-0 h-0.5 bg-yellow-300 scale-x-0 transition-transform duration-300 origin-left group-hover:scale-x-100" />
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -70,13 +71,13 @@ const Navbar = () => {
         </button>
         
         {['Home', 'About Us', 'Privacy','Our Customers', 'FAQs'].map((item) => (
-          <a 
+          <Link 
             key={item} 
-            href={`/${item.toLowerCase().replace(" ", "")}`} 
+            to={`/${item.toLowerCase().replace(" ", "")}`} 
             className="block px-4 py-2 text-black  hover:underline text-2xl !important"
           >
             {item}
-          </a>
+          </Link>
         ))}
         {/* log in functionality using auth0 */}
         <button onClick={()=>loginWithRedirect()} className="block px-4 py-2 mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded transition duration-300">
