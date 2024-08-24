@@ -1,4 +1,4 @@
-
+import 'regenerator-runtime/runtime';
 import { createRoot } from 'react-dom/client'
 import { Auth0Provider } from '@auth0/auth0-react';
 

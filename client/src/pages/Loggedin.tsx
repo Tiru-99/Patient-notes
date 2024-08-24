@@ -1,38 +1,32 @@
-import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useNavigate } from 'react-router-dom';
+import { Navbar2 } from "../Components/Navbar2";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { v4 as uuidv4 } from 'uuid';
+import { Link } from "react-router-dom";
+// import PatientForm from "../Components/PatientForm";
+
+
 
 export const Loggedin = () => {
-  const navigate = useNavigate();
-  const { user, isAuthenticated, logout } = useAuth0();
 
-  React.useEffect(() => {
-    if (!isAuthenticated) {
-      alert("You need to be logged in to access this page");
-      navigate('/home');
-    }
-  }, [isAuthenticated, navigate]);
-
-  if (!user) {
-    console.log("There is a problem with your ID and details");
-    return null; 
-  }
+  const uniqueId = uuidv4(); // Generates a unique ID
+  console.log(uniqueId);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="max-w-lg w-full bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-2xl font-semibold mb-4">You Are Logged In Successfully!</h1>
-        <div className="mb-4">
-          <p className="text-lg text-gray-700">Your Email is:</p>
-          <p className="text-xl font-bold text-gray-900">{user.email}</p>
+    <>
+        <Navbar2/>
+        
+        <div className="text-right mt-16 mr-12">
+          <Link to={`/page1/${uniqueId}`}><button
+                className="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out"
+              >
+                <FontAwesomeIcon icon={faPlus} className="mr-2" />
+                Create a Session Now
+          </button></Link>
         </div>
-        <button
-          onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-          className="w-full bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-teal-600 transition duration-300"
-        >
-          Log Out
-        </button>
-      </div>
-    </div>
+
+ 
+      
+    </>
   );
 };
