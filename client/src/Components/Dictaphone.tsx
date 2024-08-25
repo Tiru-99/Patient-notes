@@ -49,7 +49,7 @@ const Dictaphone: React.FC<DictaphoneProps> = ({ onTranscript }) => {
                 {transcript || <span className="text-gray-400">Click to see the transcript here...</span>}
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 ">
                 <button
                     type='button'
                     onClick={setCopied}

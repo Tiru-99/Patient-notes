@@ -26,7 +26,7 @@ export const Navbar2 = () => {
           <img 
             src='/logo.svg' 
             alt="Logo" 
-            className="w-44 h-11" 
+            className="w-32 h-auto sm:w-44 sm:h-11" 
           />
 
           {/* User Info and Logout Button */}

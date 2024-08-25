@@ -90,16 +90,17 @@ export const Loggedin = () => {
   return (
     <>
       <Navbar2 />
-      <div className="text-right mt-16 mr-12">
+      <div className="flex justify-center mt-8 mx-4">
         <Link to={`/page1/${uniqueId}`}>
-          <button className="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out">
+          <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg transition duration-300 ease-in-out text-sm sm:text-base">
             <FontAwesomeIcon icon={faPlus} className="mr-2" />
             Create a Session Now
           </button>
         </Link>
       </div>
 
-      <div className="text-4xl pl-16 text-gray-700 font-bold">
+
+      <div className="text-4xl sm:pl-16  text-gray-700 font-bold text-center sm:text-left">
         Patient Notes
       </div>
 
