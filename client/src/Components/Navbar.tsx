@@ -26,9 +26,13 @@ const Navbar = () => {
     <nav className="bg-gradient-to-r from-gray-700 to-blue-600 text-white">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Left: Logo/Image */}
-        <div className="flex items-center sedan-font text-3xl font-semibold">
-          Patient Notes
-        </div>
+       
+        <img 
+          src='/logo.svg' 
+          alt="Logo" 
+          className="w-44 h-11" 
+        />
+       
 
         {/* Middle: Navigation Links */}
         <div className="hidden md:flex space-x-6">

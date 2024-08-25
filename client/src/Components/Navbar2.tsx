@@ -23,9 +23,11 @@ export const Navbar2 = () => {
       <div className="bg-blue-600 p-4">
         <div className="container mx-auto flex justify-between items-center text-white">
           {/* Brand Name */}
-          <div className="text-xl font-bold">
-            Patient Notes
-          </div>
+          <img 
+            src='/logo.svg' 
+            alt="Logo" 
+            className="w-44 h-11" 
+          />
 
           {/* User Info and Logout Button */}
           <div className="flex items-center space-x-4">

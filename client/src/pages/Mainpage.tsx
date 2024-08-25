@@ -5,6 +5,7 @@ import '../index.css';
 import CompatibilitySection from "../Components/CompatibilitySection";
 import { FaPhone } from 'react-icons/fa';
 import Testimonial from "../Components/Testimonial";
+import { Link } from "react-router-dom";
 
 
 
@@ -30,9 +31,12 @@ export const Mainpage = () => {
                         </div>
 
                         <div className="mt-10">
-                        <button className="p-4 px-6 rounded-full bg-teal-500 text-navy-800 font-bold text-lg shadow-md transition-all duration-300 ease-in-out hover:bg-teal-600 hover:shadow-lg hover:text-white">
-                            Get Started with Your 14-Day Trial
-                        </button>
+                        <Link to='/page1'><button
+                            className="p-4 px-6 rounded-full bg-teal-500 text-navy-800 font-bold text-lg shadow-md transition-all duration-300 ease-in-out hover:bg-teal-600 hover:shadow-lg hover:text-white">
+                                Get Started with Your 14-Day Trial
+                            </button>
+                        </Link>
+                        
 
                         </div>
                     </div>
@@ -159,9 +163,9 @@ export const Mainpage = () => {
                     </div>
 
                     <div className="text-center mt-5">
-                    <button className="bg-teal-500 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-transform transform hover:scale-105 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50">
+                    <a href="https://www.patientnotes.app/security" className="bg-teal-500 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-transform transform hover:scale-105 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50">
                          Read about Patient Notes dedication to security
-                    </button>
+                    </a>
 
                     </div>
                 </div>
