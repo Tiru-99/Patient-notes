@@ -24,7 +24,7 @@ export const Loggedin = () => {
   const { isAuthenticated, user } = useAuth0();
   const [readOnly, setReadOnly] = useState<boolean>(true);
   const [editNote, setEditNote] = useState('');
-  const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const uniqueId = uuidv4();
   const mail = user?.email;
@@ -35,17 +35,11 @@ export const Loggedin = () => {
         try {
           const data = await getPatientNotesByOwner(mail);
           setPatientNotes(data as PatientNote[]);
-          if (!data) {
-            console.log("Something is wrong in the data getting section");
-          }
-          console.log(data);
         } catch (error) {
           console.error("Error fetching patient notes:", error);
         }
       };
       fetchData();
-    } else {
-      console.log("User is not authenticated or email is undefined");
     }
   }, [isAuthenticated, mail]);
 
@@ -72,25 +66,14 @@ export const Loggedin = () => {
 
   const handleUpdateNote = async (noteId: string) => {
     try {
-      console.log("Attempting to update note. Custom Note ID:", noteId);
-      console.log("New note content:", editNote);
-  
-      // Use the updated function to find and update the Firestore document by id field
       await updatePatientNoteByNoteId(noteId, { notes: editNote });
-  
-      console.log("Note updated successfully in Firestore!");
-  
-      // Update the local state
       setPatientNotes(prevNotes =>
         prevNotes.map(note =>
           note.id === noteId ? { ...note, notes: editNote } : note
         )
       );
-  
       setSelectedNote(prevNote => (prevNote ? { ...prevNote, notes: editNote } : null));
       setReadOnly(true);
-      console.log("Local state updated");
-  
     } catch (error) {
       console.error("Error updating note:", error);
     }
@@ -108,17 +91,17 @@ export const Loggedin = () => {
     <>
       <Navbar2 />
       <div className="text-right mt-16 mr-12">
-          <Link to={`/page1/${uniqueId}`}><button
-                className="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out"
-              >
-                <FontAwesomeIcon icon={faPlus} className="mr-2" />
-                Create a Session Now
-          </button></Link>
-        </div>
+        <Link to={`/page1/${uniqueId}`}>
+          <button className="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out">
+            <FontAwesomeIcon icon={faPlus} className="mr-2" />
+            Create a Session Now
+          </button>
+        </Link>
+      </div>
 
       <div className="text-4xl pl-16 text-gray-700 font-bold">
-          Patient Notes
-      </div>  
+        Patient Notes
+      </div>
 
       <div className="mt-8 mx-12">
         {/* Search bar with icon */}
@@ -136,30 +119,24 @@ export const Loggedin = () => {
           />
         </div>
 
-        {filteredNotes.length > 0 ? (
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-100">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient Age</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredNotes.map(note => (
-                <tr key={note.id} className="hover:bg-gray-100 transition duration-300 cursor-pointer" onClick={() => openModal(note)}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{note.id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{note.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{note.age} years old</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{note.gender}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className="text-center text-gray-500">No patient notes found.</p>
-        )}
+        {/* Responsive boxes for patient notes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredNotes.length > 0 ? (
+            filteredNotes.map(note => (
+              <div
+                key={note.id}
+                className="bg-white p-6 mr-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                onClick={() => openModal(note)}
+              >
+                <h3 className="text-xl font-semibold mb-2">{note.name}</h3>
+                <p className="text-gray-700">Age: {note.age} years</p>
+                <p className="text-gray-700">Gender: {note.gender}</p>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No patient notes found.</p>
+          )}
+        </div>
       </div>
 
       <Modal
