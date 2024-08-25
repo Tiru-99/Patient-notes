@@ -51,12 +51,14 @@ const Dictaphone: React.FC<DictaphoneProps> = ({ onTranscript }) => {
 
             <div className="flex space-x-4">
                 <button
+                    type='button'
                     onClick={setCopied}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
                 >
                     {isCopied ? 'Copied!' : 'Copy to clipboard'}
                 </button>
                 <button
+                    type='button'
                     onClick={startListening}
                     className={`px-4 py-2 text-white rounded-md transition duration-200 ${
                         listening ? 'bg-green-700 animate-pulse' : 'bg-green-500 hover:bg-green-600'
@@ -65,12 +67,14 @@ const Dictaphone: React.FC<DictaphoneProps> = ({ onTranscript }) => {
                     {listening ? 'Listening...' : 'Start Listening'}
                 </button>
                 <button
+                    type='button'
                     onClick={SpeechRecognition.stopListening}
                     className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200"
                 >
                     Stop Listening
                 </button>
                 <button
+                    type='button'
                     onClick={clearTranscript}
                     className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-200"
                 >

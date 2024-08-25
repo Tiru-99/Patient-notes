@@ -5,6 +5,9 @@ import Dictaphone from './Dictaphone';
 import axios from 'axios';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Modal from 'react-modal';
+import { addPatientNoteToFirestore } from '../firebase/firebase.config.ts'; 
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +25,9 @@ interface PatientFormProps {
 
 
 
+
+
+
 const PatientForm: React.FC<PatientFormProps> = ({ uniqueId }) => {
   const [formState, setFormState] = useState<PatientFormState>({
     patientName: '',
@@ -31,52 +37,47 @@ const PatientForm: React.FC<PatientFormProps> = ({ uniqueId }) => {
     isRecording: false,
   });
 
-  const patientNotes = [
-    {
-      id: 1,
-      name: "John Doe",
-      age: 45,
-      notes: "Complains of chest pain for the past 3 days...",
-    },
-    {
-      id: 1,
-      name: "John Doe",
-      age: 45,
-      notes: "Complains of chest pain for the past 3 days...",
-    }
-  ];
+  const{user } = useAuth0(); 
+  const navigate = useNavigate(); 
+  
 
-  
-  
-  try {
-    localStorage.setItem("patientNotes", JSON.stringify(patientNotes));
-    console.log("Data successfully stored in localStorage");
-  } catch (error) {
-    console.error("Something went wrong while storing the data", error);
-  }
-  
-  const addPatientNote = (e: FormEvent<HTMLButtonElement>) =>{
-    e.preventDefault();
-  
-  
-    const updatedNote = {
-      id : uniqueId, 
-      name : formState.patientName,
-      age : formState.patientAge,
-      gender : formState.gender,
-      notes : generatedNotes
+
+  const handleSaveNoteToFirebase = async () => {
+
+    if (!user) {
+      console.log("User is not authenticated");
+      return;
     }
 
-    const updatedPatientNotes = [...patientNotes , updatedNote];
+    const patientData = {
+      owner : user.email, 
+      id: uniqueId,
+      name: formState.patientName,
+      age: formState.patientAge,
+      gender: formState.gender,
+      notes: generatedNotes,
+    };
 
     try {
-      localStorage.setItem("patientNotes", JSON.stringify(updatedPatientNotes));
-      console.log("Data successfully updated in localStorage");
-      setModalIsOpen(false); // Close the modal after saving
+      await addPatientNoteToFirestore(patientData);
+      console.log("Patient note saved to Firestore successfully");
     } catch (error) {
-      console.error("Something went wrong while storing the data", error);
+      console.error("Error saving patient note to Firestore", error);
     }
-  }
+  };
+  
+  
+
+  const addPatientNote = (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // Save to Firebase
+    handleSaveNoteToFirebase();
+    // Close the modal after saving
+    alert("Patient Notes Saved Successfully!");
+    
+    setModalIsOpen(false);
+    navigate('/page1');
+  };
 
   const [loading, setLoading] = useState<boolean>(false);
   const [generatedNotes, setGeneratedNotes] = useState<string>('');
@@ -153,7 +154,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ uniqueId }) => {
       - **Bullet Points**: Use <ul> for unordered lists and <li> for list items to present information in bullet points.
       - **Paragraphs**: Use <p> tags for paragraphs to ensure proper text separation.Include one or two line breaks (using <br>) between paragraphs and sections where necessary to improve readability.
 
-      Ensure that the note is well-organized and clearly readable. Avoid generic responses like "I don't have sufficient information" or "consult a doctor." This is for an internship project, so provide detailed content and make sure it looks professional and is formatted correctly.`;
+      Ensure that the note is well-organized and clearly readable & detail oriented. Avoid generic responses like "I don't have sufficient information" or "consult a doctor." This is for an internship project, so provide detailed content and make sure it looks professional and is formatted correctly.`;
 
       const result = await model.generateContent([prompt]);
 
@@ -310,7 +311,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ uniqueId }) => {
     </ReactQuill>
     
     <div className='text-center'>
-      <button className='bg-green-400 p-1 px-2 mt-2 mb-2  text-white rounded' onClick={addPatientNote} type='submit'> Save Button </button>
+      <button className='bg-green-400 p-1 px-2 mt-2 mb-2  text-white rounded' onClick={addPatientNote} type='submit'> Save Patient Notes </button>
     </div>
     </form>
   </div>
